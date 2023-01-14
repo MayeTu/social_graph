@@ -81,17 +81,20 @@ struct DummySocialGraph : SocialGraph {
         }
 
         if(sortBy != SortBy_DontSort) {
-            std::sort(users.begin(), users.end(), [this, userId, sortBy](auto u1, auto u2) {
+            std::sort(filteredUsers.begin(), filteredUsers.end(), [this, userId, sortBy](auto u1, auto u2) {
+                auto user1 = users[u1];
+                auto user2 = users[u2];
+
                 if(sortBy == SortBy_Age) {
-                    return u1.age < u2.age;
+                    return user1.age < user2.age;
                 }
 
                 if(sortBy == SortBy_Name) {
-                    return u1.name < u2.name;
+                    return user1.name < user2.name;
                 }
 
                 if(sortBy == SortBy_Relevance) {
-                    return countRelevance(userId, u1) > countRelevance(userId, u2);
+                    return countRelevance(userId, user1) > countRelevance(userId, user2);
                 }
 
                 return false;

@@ -370,9 +370,9 @@ int main() {
     benchmark_graph(graph);
   }
 
-  {
-    std::cout << "Benchmarking FastSocialGraph ..." << std::endl;
-    FastSocialGraph graph;
-    benchmark_graph(graph);
-  }
+  // {
+  //   std::cout << "Benchmarking FastSocialGraph ..." << std::endl;
+  //   FastSocialGraph graph;
+  //   benchmark_graph(graph);
+  // }
 }
