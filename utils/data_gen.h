@@ -1,7 +1,7 @@
 #pragma once
 #include "city_list.h"
 #include "names_list.h"
-#include "social_graph.h"
+#include "../social_graph.h"
 
 #include <random>
 #include <iostream>
