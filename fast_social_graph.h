@@ -1,6 +1,4 @@
 #pragma once
-
-#pragma once
 #include "social_graph.h"
 #include <unordered_map>
 #include <unordered_set>
@@ -15,7 +13,7 @@ struct FastSocialGraphUser{
 
 struct FastSocialGraph : SocialGraph {  
   int addUser(const std::string &name, int age, Gender gender, const std::string &city) override {
-    users.insert({users.size(),FastSocialGraphUser{name,age,gender,city,{}}});
+    users.push_back(FastSocialGraphUser{name,age,gender,city,{}});
     relations.push_back({});
     return static_cast<int>(users.size()) - 1;
   }
@@ -123,15 +121,15 @@ struct FastSocialGraph : SocialGraph {
     }
     int64_t relevance=0;
     
-    for(int f: users[userId].friends){
-      if (relations[user].count(f)>0) relevance++;
+    for(int currentFriend: users[userId].friends){
+      if (relations[user].count(currentFriend)>0) relevance++;
     }
 
     relevanceCount[key]=relevance;
     return relevance; 
   }
   
-  std::unordered_map<int,FastSocialGraphUser> users;
+  std::vector<FastSocialGraphUser> users;
   std::vector<std::unordered_set<int>> relations;
   std::unordered_map<int64_t,int> relevanceCount;
 };
