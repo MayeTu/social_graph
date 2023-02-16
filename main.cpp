@@ -5,7 +5,6 @@
 
 #include <cassert>
 #include <iostream>
-#include <time.h>
 
 void run_simple_queries(SocialGraph &graph) {
   std::cout << "Benchmark getUser: "
@@ -365,21 +364,19 @@ void benchmark_graph(SocialGraph &graph) {
 }
 
 int main() {
-  double firstTime=clock()/(double)CLOCKS_PER_SEC;
-  {
-    std::cout << "Benchmarking DummySocialGraph ..." << std::endl;
-    DummySocialGraph graph;
-    benchmark_graph(graph);
-  }
-  double secondTime=clock()/(double)CLOCKS_PER_SEC;
-  {
-     std::cout << "Benchmarking FastSocialGraph ..." << std::endl;
-     FastSocialGraph graph;
-     benchmark_graph(graph);
-  }
-  double thirdTime=clock()/(double)CLOCKS_PER_SEC;
+  std::cout << "Benchmarking  DummySocialGraph: " <<  measure<std::chrono::milliseconds>::execution(
+                   []() 
+    {
+        DummySocialGraph dgraph;
+        benchmark_graph(dgraph);
+                 })
+              << " ms\n";
 
-  std::cout << "1st alg spent "<< (secondTime-firstTime)<< "sec"<< std::endl;
-  std::cout << "2nd alg spent "<< (thirdTime-secondTime)<< "sec"<< std::endl;
-
+    std::cout << "Benchmarking  FastSocialGraph: " <<  measure<std::chrono::milliseconds>::execution(
+                   []() 
+    {
+        FastSocialGraph fgraph;
+        benchmark_graph(fgraph);
+                 })
+              << " ms\n";
 }
